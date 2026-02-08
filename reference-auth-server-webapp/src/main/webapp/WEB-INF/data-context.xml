@@ -27,7 +27,7 @@
     <!--  The following is for connecting to a MySQL database that has been initialized with
     src/main/resources/db/mysql/mysql_database_tables.sql -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
         <property name="jdbcUrl" value="${oidc.datasource.mysql.url}" />
         <property name="username" value="${oidc.datasource.mysql.username}" />
         <property name="password" value="${oidc.datasource.mysql.password}" />

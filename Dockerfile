@@ -1,15 +1,11 @@
-FROM openjdk:11-jdk
+FROM eclipse-temurin:11-jdk-jammy
 
-ADD reference-auth-server-webapp/target/hspc-reference-auth-server-webapp*.war app.war
+WORKDIR /app
 
-ADD reference-auth-server-webapp/target/dependency/jetty-runner.jar  jetty-runner.jar
-#ADD reference-auth-server-webapp/src/main/resources/jetty-ssl.xml jetty-ssl.xml
-ADD reference-auth-server-webapp/src/main/resources/jetty.xml jetty.xml
+COPY reference-auth-server-webapp/target/hspc-reference-auth-server-webapp*.war app.war
 
-#ADD src/main/resources/mysql-ca/rdscacerts rdscacerts
+COPY reference-auth-server-webapp/target/dependency/jetty-runner.jar jetty-runner.jar
 
-#ADD ci/keystore-gen.sh pre-run.sh
-#RUN chmod +x pre-run.sh
+COPY reference-auth-server-webapp/src/main/resources/jetty.xml jetty.xml
 
-#ENTRYPOINT [ "sh", "-c", "./pre-run.sh && java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar jetty-runner.jar --config jetty-ssl.xml app.war" ]
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar jetty-runner.jar --config jetty.xml app.war" ]
